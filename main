@@ -1,0 +1,81 @@
+package com.example.demo;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ChuQuan {
+
+    // 开始位置
+    private int beginIndex = 0;
+
+    // 步长
+    private int step = 0;
+
+    // 节点
+    private int nodeNum = 0;
+
+    // 圈
+    private List<Integer> li;
+
+    public ChuQuan(int beginIndex, int step, int nodeNum) {
+        this.beginIndex = beginIndex;
+        this.step = step;
+        this.nodeNum = nodeNum;
+    }
+
+    /**
+     * 创造圈
+     * @returnhttps://github.com/kang-shuai/chuquan
+     */
+    public void createQuan(){
+        List<Integer> li = new ArrayList<Integer>(this.nodeNum);
+
+        for (int i = 0; i < this.nodeNum; i++) {
+            li.add(i+1);
+        }
+
+        this.li = li;
+    }
+
+    /**
+     * 执行出圈操作
+     * @return
+     */
+    public Integer execute() {
+
+        createQuan();
+
+        int xi = this.beginIndex + this.step;
+
+        boolean flag = false;
+
+        while ( this.li.size() > 1) {
+
+            if (flag) {
+                xi = this.step + xi;
+            }
+
+            if (xi >= this.li.size()) {
+                xi = xi - this.li.size();
+                flag = false;
+            }
+
+            if (xi < this.li.size()) {
+                this.li.remove(xi);
+                flag = true;
+            }
+
+        }
+
+        return this.li.get(0);
+
+    }
+
+    public static void main(String[] args) {
+
+        ChuQuan chuQuan = new ChuQuan(0,0,1);
+        System.out.println(chuQuan.execute());
+
+    }
+
+}
